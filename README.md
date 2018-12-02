@@ -57,7 +57,7 @@ Example:
 
 ```html
 <tjb-login
-  postbody="{ &quot;foo&quot;: &quot;bar&quot; }"
+  postbody="{ 'foo': 'bar' }"
   posturl="https://jsonplaceholder.typicode.com/users"
 >
   <input value="LOGIN" type="submit" slot="submit" />
@@ -68,7 +68,7 @@ All attributes:
 
 | attribute | example                                              | description                                                                             |
 | --------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| postbody  | postbody='{ "foo": "bar" }'                          | JSON Object that will be added to the remote login POSt call.                           |
+| postbody  | postbody="{ 'foo': 'bar' }"                          | JSON Object that will be added to the remote login POSt call.                           |
 | posturl   | posturl="https://jsonplaceholder.typicode.com/users" | `URL` that will be called with a `POST` call and credentials as `application/json` body |
 
 ### Events

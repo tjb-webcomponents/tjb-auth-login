@@ -215,10 +215,11 @@ class tjbAuthLogin extends WebComponent() {
 
     this.statusbar.status = "loading";
 
+    const postbody = this.postbody && this.postbody.replace(/\'/g, '"');
     const body = Object.assign({}, {
       email: this.emailInput.value,
       password: this.passwordInput.value
-    }, JSON.parse(this.postbody));
+    }, JSON.parse(postbody || "{}"));
 
     return fetch(this.posturl, {
       method: "POST",
