@@ -1,8 +1,9 @@
 import WebComponent from "https://tjb-webcomponents.github.io/tjb-webcomponent/tjb-wc.min.js";
 import html from "https://tjb-webcomponents.github.io/html-template-string/html-template-string.js";
-import { bounce } from 'https://tjb-webcomponents.github.io/tjb-gfx/tjb-gfx.min.js';
+import { bounce } from "https://tjb-webcomponents.github.io/tjb-gfx/tjb-gfx.min.js";
 import "https://tjb-webcomponents.github.io/tjb-input/tjb-input.min.js";
 import "https://tjb-webcomponents.github.io/tjb-statusbar/tjb-statusbar.min.js";
+import "https://tjb-webcomponents.github.io/tjb-notify/tjb-notify.min.js";
 
 class tjbAuthLogin extends WebComponent() {
   // Styles
@@ -12,10 +13,16 @@ class tjbAuthLogin extends WebComponent() {
     return html`
       <style>
         :host {
-          --background-message-error: #fa354c;
-          --color-message-error: white;
           --color-login-info: grey;
-          
+
+          /* notify */
+          --login-notify-background-error: #fa354c;
+          --login-notify-background-success: limegreen;
+          --login-notify-color-error: white;
+          --login-notify-color-success: white;
+          --login-notify-margin: -55px -40px 20px;
+          --login-notify-padding: 15px 15px 15px 35px;
+
           /* input */
           --login-input-color-error: #fa354c;
           --login-input-color-success: limegreen;
@@ -55,47 +62,17 @@ class tjbAuthLogin extends WebComponent() {
           --input-label-margin: var(--login-input-label-margin);
         }
 
+        tjb-notify {
+          --notify-background-error: var(--login-notify-background-error);
+          --notify-background-success: var(--login-notify-background-success);
+          --notify-color-error: var(--login-notify-color-error);
+          --notify-color-success: var(--login-notify-color-success);
+          --notify-margin: var(--login-notify-margin);
+          --notify-padding: var(--login-notify-padding);
+        }
+
         .alert {
           animation: shake 150ms linear 3;
-        }
-
-        .message {
-          max-height: 0;
-          line-height: 1.5;
-          letter-spacing: 0.1px;
-          overflow: hidden;
-          transition: max-height 250ms linear;
-        }
-
-        .message--error {
-          max-height: 300px;
-          background: var(--background-message-error);
-          color: var(--color-message-error);
-          animation: blink 250ms linear 2;
-        }
-
-        .message__link {
-          text-decoration: underline;
-          cursor: pointer;
-        }
-
-        .message--error .message__link {
-          color: var(--color-message-error);
-        }
-
-        .login__message {
-          box-sizing: border-box;
-          display: flex;
-          justify-content: center;
-          margin: -55px 0 20px -40px;
-          overflow: visible;
-          padding: 15px;
-          width: calc(100% + 80px);
-        }
-
-        .login__message > ul {
-          padding: 0;
-          margin: 0;
         }
 
         .login__fieldset {
@@ -166,7 +143,7 @@ class tjbAuthLogin extends WebComponent() {
     `;
 
     this.messageNode = html`
-      <div class="message login__message"></div>
+      <tjb-notify></tjb-notify>
     `;
 
     return html`
@@ -223,10 +200,10 @@ class tjbAuthLogin extends WebComponent() {
 
     return fetch(this.posturl, {
       method: "POST",
-      redirect: 'follow',
-      credentials: 'include',
+      redirect: "follow",
+      credentials: "include",
       headers: new Headers({
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }),
       body: JSON.stringify(body)
     }).then(resp => resp.json()).then(resp => {
@@ -264,14 +241,14 @@ class tjbAuthLogin extends WebComponent() {
     this.writeMessageError = this.writeMessageError.bind(this);
     this.statusbar.status = "alert";
     this.domNode.addEventListener("animationend", this.writeMessageError);
-    this.domNode.classList.add("alert");
+    this.domNode.classList.remove("alert");
+    setTimeout(() => this.domNode.classList.add("alert"), 100);
   }
 
   writeMessageError() {
     this.domNode.removeEventListener("animationend", this.writeMessageError);
 
-    this.messageNode.innerHTML = "";
-    const errorMsg = html`
+    this.messageNode.error = html`
       <ul>
         <li>
           <a
@@ -299,8 +276,6 @@ class tjbAuthLogin extends WebComponent() {
         </li>
       </ul>
     `;
-    this.messageNode.appendChild(errorMsg);
-    this.messageNode.classList.add("message--error");
 
     this.emailInput.showMessage("error");
     this.passwordInput.showMessage("error");
