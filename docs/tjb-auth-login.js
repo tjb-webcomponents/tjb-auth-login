@@ -13,7 +13,7 @@ class tjbAuthLogin extends WebComponent() {
     return html`
       <style>
         :host {
-          --color-login-info: grey;
+          --login-color-info: grey;
 
           /* notify */
           --login-notify-background-error: #fa354c;
@@ -86,7 +86,7 @@ class tjbAuthLogin extends WebComponent() {
         .login__info {
           text-align: center;
           margin-bottom: 10px;
-          color: var(--color-login-info);
+          color: var(--login-color-info);
         }
 
         .login__footnote {

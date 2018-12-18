@@ -87,9 +87,15 @@ Default public values:
 
 ```css
 :host {
-  --background-message-error: #fa354c;
-  --color-message-error: white;
-  --color-login-info: grey;
+  --login-color-info: grey;
+
+  /* notify */
+  --login-notify-background-error: #fa354c;
+  --login-notify-background-success: limegreen;
+  --login-notify-color-error: white;
+  --login-notify-color-success: white;
+  --login-notify-margin: -55px -40px 20px;
+  --login-notify-padding: 15px 15px 15px 35px;
 
   /* input */
   --login-input-color-error: #fa354c;

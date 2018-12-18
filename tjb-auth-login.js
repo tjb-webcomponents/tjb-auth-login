@@ -1,6 +1,8 @@
 import WebComponent from "https://tjb-webcomponents.github.io/tjb-webcomponent/tjb-wc.min.js";
 import html from "https://tjb-webcomponents.github.io/html-template-string/html-template-string.js";
-import { bounce } from "https://tjb-webcomponents.github.io/tjb-gfx/tjb-gfx.min.js";
+import {
+  bounce
+} from "https://tjb-webcomponents.github.io/tjb-gfx/tjb-gfx.min.js";
 import "https://tjb-webcomponents.github.io/tjb-input/tjb-input.min.js";
 import "https://tjb-webcomponents.github.io/tjb-statusbar/tjb-statusbar.min.js";
 import "https://tjb-webcomponents.github.io/tjb-notify/tjb-notify.min.js";
@@ -10,10 +12,10 @@ class tjbAuthLogin extends WebComponent() {
   ///////////////////////////////////////////////////////////
 
   CSS() {
-    return html`
+    return html `
       <style>
         :host {
-          --color-login-info: grey;
+          --login-color-info: grey;
 
           /* notify */
           --login-notify-background-error: #fa354c;
@@ -86,7 +88,7 @@ class tjbAuthLogin extends WebComponent() {
         .login__info {
           text-align: center;
           margin-bottom: 10px;
-          color: var(--color-login-info);
+          color: var(--login-color-info);
         }
 
         .login__footnote {
@@ -116,11 +118,11 @@ class tjbAuthLogin extends WebComponent() {
   ////////////////////////////////////////////////////////////
 
   HTML() {
-    this.statusbar = html`
+    this.statusbar = html `
       <tjb-statusbar></tjb-statusbar>
     `;
 
-    this.emailInput = html`
+    this.emailInput = html `
       <tjb-input
         label="Email"
         type="email"
@@ -130,7 +132,7 @@ class tjbAuthLogin extends WebComponent() {
       ></tjb-input>
     `;
 
-    this.passwordInput = html`
+    this.passwordInput = html `
       <tjb-input
         label="Password"
         type="password"
@@ -142,11 +144,11 @@ class tjbAuthLogin extends WebComponent() {
       ></tjb-input>
     `;
 
-    this.messageNode = html`
+    this.messageNode = html `
       <tjb-notify></tjb-notify>
     `;
 
-    return html`
+    return html `
       <form class="login__form" onsubmit="${e => this.loginHandler(e)}">
         ${this.messageNode}
         <div class="login__fieldset">
@@ -193,9 +195,7 @@ class tjbAuthLogin extends WebComponent() {
     this.statusbar.status = "loading";
 
     const postbody = this.postbody && this.postbody.replace(/\'/g, '"');
-    const body = Object.assign(
-      {},
-      {
+    const body = Object.assign({}, {
         email: this.emailInput.value,
         password: this.passwordInput.value
       },
@@ -203,14 +203,14 @@ class tjbAuthLogin extends WebComponent() {
     );
 
     return fetch(this.posturl, {
-      method: "POST",
-      redirect: "follow",
-      credentials: "include",
-      headers: new Headers({
-        "Content-Type": "application/json"
-      }),
-      body: JSON.stringify(body)
-    })
+        method: "POST",
+        redirect: "follow",
+        credentials: "include",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(body)
+      })
       .then(resp => resp.json())
       .then(resp => {
         if (resp.error) throw resp;
@@ -258,7 +258,7 @@ class tjbAuthLogin extends WebComponent() {
   writeMessageError() {
     this.domNode.removeEventListener("animationend", this.writeMessageError);
 
-    this.messageNode.error = html`
+    this.messageNode.error = html `
       <ul>
         <li>
           <a

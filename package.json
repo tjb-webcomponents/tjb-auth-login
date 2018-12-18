@@ -7,10 +7,13 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "babel --watch tjb-auth-login.js --out-dir docs | http-server",
+    "start": "npm run watch-min | npm run watch-max | http-server",
     "build": "npm run build-max | npm run build-min",
     "build-max": "babel tjb-auth-login.js --out-file docs/tjb-auth-login.js",
-    "build-min": "babel --minified tjb-auth-login.js --out-file docs/tjb-auth-login.min.js"
+    "build-min": "babel --minified tjb-auth-login.js --out-file docs/tjb-auth-login.min.js",
+    "watch-max": "babel --watch tjb-auth-login.js --out-file docs/tjb-auth-login.js",
+    "watch-min": "babel --watch --minified tjb-auth-login.js --out-file docs/tjb-auth-login.min.js",
+    "patch": "npm run build; git add .; git commit -m '$M'; git push; npm version patch; npm publish"
   },
   "repository": {
     "type": "git",
