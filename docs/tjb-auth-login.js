@@ -213,7 +213,7 @@ class tjbAuthLogin extends WebComponent() {
   }
 
   _loginSuccess(resp) {
-    bounce(this.domNode, this.dispatchEvent.bind(this, "success", resp));
+    bounce(this.domNode).then(this.dispatchEvent.bind(this, "success", resp));
   }
 
   _loginError(resp) {
@@ -227,7 +227,7 @@ class tjbAuthLogin extends WebComponent() {
 
   openHandler(event, target) {
     event.preventDefault();
-    bounce(event.target, this._location.bind(this, event.target.href, target));
+    bounce(event.target).then(this._location.bind(this, event.target.href, target));
   }
 
   _location(href, target) {
