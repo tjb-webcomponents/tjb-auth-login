@@ -78,6 +78,7 @@ All attributes:
 | redirect | - href (@String) <br> - target (@string) | triggered when user clicks on links. For instance `register` link or `forgor` password link. |
 | success  | - resp (@Object)                         | when the login call returned a success message                                               |
 | error    | - resp (@Object)                         | when the login call returned an error message                                                |
+| login    | - body (@Object)                         | when the login call is triggered. Event holds body (email, password)                         |
 
 You can listen to events like so: `tjbLogin.addEventListener('login/success', (e) => { /* do stuff */ })`.
 
