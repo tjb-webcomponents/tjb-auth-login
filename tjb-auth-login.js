@@ -202,6 +202,9 @@ class tjbAuthLogin extends WebComponent() {
       JSON.parse(postbody || "{}")
     );
 
+    this.dispatchEvent("login", body);
+    if (!this.posturl) return false;
+
     return fetch(this.posturl, {
       method: "POST",
       redirect: "follow",
