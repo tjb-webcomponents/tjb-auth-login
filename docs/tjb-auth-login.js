@@ -216,11 +216,19 @@ class tjbAuthLogin extends WebComponent() {
   }
 
   _loginSuccess(resp) {
-    bounce(this.domNode).then(this.dispatchEvent.bind(this, "success", resp));
+    this.success().then(this.dispatchEvent.bind(this, "success", resp));
   }
 
   _loginError(resp) {
     this.dispatchEvent("error", resp);
+    this.error();
+  }
+
+  success() {
+    return bounce(this.domNode);
+  }
+
+  error() {
     this.errorHandler();
   }
 
