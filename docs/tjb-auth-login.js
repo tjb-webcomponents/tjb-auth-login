@@ -229,7 +229,7 @@ class tjbAuthLogin extends WebComponent() {
   }
 
   error() {
-    this.errorHandler();
+    return this.errorHandler();
   }
 
   checkValidity() {
