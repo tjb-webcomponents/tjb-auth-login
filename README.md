@@ -48,7 +48,7 @@ import 'tjb-auth-login';
 ## Useage
 
 ```html
-<tjb-input></tjb-input>
+<tjb-auth-login></tjb-auth-login>
 ```
 
 ### Attributes
@@ -56,12 +56,12 @@ import 'tjb-auth-login';
 Example:
 
 ```html
-<tjb-login
+<tjb-auth-login
   postbody="{ 'foo': 'bar' }"
   posturl="https://jsonplaceholder.typicode.com/users"
 >
   <input value="LOGIN" type="submit" slot="submit" />
-</tjb-login>
+</tjb-auth-login>
 ```
 
 All attributes:
